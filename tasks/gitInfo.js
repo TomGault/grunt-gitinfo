@@ -39,7 +39,7 @@ module.exports = function (grunt) {
                     },
                     function (err, result) {
                         if (err) {
-                            console.warn("[gitinfo]: couldn't set config:", conf_key);
+                            grunt.log.error(conf_key + ": " + err.toString().red);
                         } else {
                             var ref = gitinfo, keys = conf_key.split("."), i, key;
                             for (i = 0; i < keys.length - 1; i += 1) {
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
                             ref[keys.pop()] = result.stdout;
 
                             if (grunt.option("debug") || grunt.option("verbose")) {
-                                console.log("[gitinfo]:", conf_key, "=", result.stdout);
+                                grunt.log.ok(conf_key + ": " + result.stdout.cyan);
                             }
                         }
                         cb();
